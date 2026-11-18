@@ -10,5 +10,5 @@ The development environment is configured according to the [Getting Started Guid
 
 Notes:
 
-* Read [HOWTO.md](file://.devcontainer/stm32cubeclt/HOWTO.md) for instructions on obtaining Debian packages required to build the container.<br>
-  Also, remember to update the version numbers of these packages in the [Containerfile](file://Containerfile).
+* Read [HOWTO.md](.devcontainer/stm32cubeclt/HOWTO.md) for instructions on obtaining Debian packages required to build the container.<br>
+  Also, remember to update the version numbers of these packages in the [Containerfile](Containerfile).
