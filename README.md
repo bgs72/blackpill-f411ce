@@ -1,5 +1,5 @@
 # blackpill-f411ce
-A Podman container providing a complete Zephyr development environment for the blackpill-f411ce board.
+A Podman container providing a complete Zephyr development environment for the blackpill-f411ce board using [VSCode](https://code.visualstudio.com/).
 The development environment is configured according to the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) and includes the following components:
 
 * [Zephyr v4.5.0](https://github.com/zephyrproject-rtos/zephyr)
