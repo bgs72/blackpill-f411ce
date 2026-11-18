@@ -1,0 +1,51 @@
+
+{
+    "name": "blackpill-f411ce",
+
+    "build": {
+        "dockerfile": "../Containerfile",
+        "context": "..",
+        "args": {
+                "USER_NAME": "zephyr",
+                "USER_UID": "${localEnv:HOST_UID:1000}",
+                "USER_GID": "${localEnv:HOST_GID:1000}"
+        }
+    },
+    
+    "remoteUser": "zephyr",
+    
+    "updateRemoteUserUID": false,
+
+    "workspaceFolder": "/home/zephyr/blackpill-f411ce",
+
+    "workspaceMount": "source=${localWorkspaceFolder}/applications,target=/home/zephyr/blackpill-f411ce/applications,type=bind",
+    
+    "mounts": [
+        "source=/dev/bus/usb,target=/dev/bus/usb,type=bind"
+    ],
+    
+    "runArgs": [
+        "--name=zephyr-v4.5-for-blackpill-f411ce",
+        "--hostname=blackpill-f411ce",
+    ],
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ac6.zephyr-workbench",
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools",
+                "trond-snekvik.devicetree",
+                "redhat.vscode-yaml",
+                "marus25.cortex-debug"
+            ]
+        }
+    },
+       
+    "forwardPorts": [],
+
+    "postCreateCommand": "west --version",
+
+    "shutdownAction": "stopContainer"
+}
+

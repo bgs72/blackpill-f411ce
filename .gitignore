@@ -1,0 +1,4 @@
+applications/
+.devcontainer/scripts/
+.devcontainer/stm32cubeclt/*.deb
+.devcontainer/stm32cubeclt/*.sh
