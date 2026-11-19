@@ -62,18 +62,20 @@ RUN apt-get update && \
         tar \
         psmisc \
         procps \
-        nano && \    
+        nano \
+        locales && \
+    locale-gen en_US.UTF-8 en_GB.UTF-8 nl_BE.UTF-8 fr_BE.UTF-8 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Configure default locale
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
-ENV LC_ALL=en_US.UTF-8
+# ENV LC_ALL=en_US.UTF-8 # avoid setting LC_ALL
 
 # Create user with password-less sudo and avoid UID/GID conflicts (if any)
 RUN set -eux; \
-    # On UID conflict, remove default ubuntu user
+    # On UID conflict, remove default ubuntu user (typically created by base image)
     if id ubuntu >/dev/null 2>&1; then \
         UBUNTU_UID=$(id -u ubuntu); \
         if [ "${UBUNTU_UID}" = "${USER_UID}" ] && \
@@ -82,7 +84,7 @@ RUN set -eux; \
         fi; \
     fi; \
     \
-    # On GID conflict, remove default ubuntu group
+    # On GID conflict, remove default ubuntu group (typically created by base image)
     if getent group ubuntu >/dev/null; then \
         UBUNTU_GID=$(getent group ubuntu | cut -d: -f3); \
         if [ "${UBUNTU_GID}" = "${USER_GID}" ] && \
@@ -113,8 +115,8 @@ RUN set -eux; \
     chmod 0440 "/etc/sudoers.d/${USER_NAME}"; \
     \
     # Update prompt colors
-    echo "export PS1='\[\e[1;35m\]\u@\h\[\e[0m\]:\[\e[1;35m\]\w\[\e[0m\]\$ '" >> /root/.bashrc; \
-    echo "export PS1='\[\e[1;36m\]\u@\h\[\e[0m\]:\[\e[1;36m\]\w\[\e[0m\]\$ '" >> /home/${USER_NAME}/.bashrc; \
+    printf '%s\n' "export PS1='\[\e[1;35m\]\u@\h\[\e[0m\]:\[\e[1;35m\]\w\[\e[0m\]\$ '" >> /root/.bashrc; \
+    printf '%s\n' "export PS1='\[\e[1;36m\]\u@\h\[\e[0m\]:\[\e[1;36m\]\w\[\e[0m\]\$ '" >> /home/${USER_NAME}/.bashrc; \
     chown "${USER_UID}:${USER_GID}" "/home/${USER_NAME}/.bashrc"; \
     \
     # Create workspace folder
